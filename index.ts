@@ -190,3 +190,191 @@ class Per extends Persone {
 
 const P1 = new Per("dhaka", "ali", "jdhfjdf@g.com", 34, "Bangladesh");
 console.log(P1);
+
+//Getters and Setters
+class Balance {
+  private _balance: number = 0;
+  get balance(): number {
+    return this._balance;
+  }
+  set balance(amount: number) {
+    this._balance = amount;
+  }
+}
+
+const Balanc = new Balance();
+console.log(`Current balance is :${Balanc.balance}`);
+Balanc.balance = 50;
+console.log(`After getter New balance is :${Balanc.balance}`);
+
+// Interfaces
+// Basic
+interface Peaple {
+  name: string;
+  age: number;
+  gender: string;
+}
+const Users: Peaple = {
+  name: "ahmed",
+  age: 32,
+  gender: "Male",
+};
+console.log(Users);
+
+// functional interfaces
+interface Maths {
+  (x: number, y: number): number;
+}
+const Add: Maths = (a, b) => a + b;
+console.log(Add(3, 4));
+const Sub: Maths = (c, d) => d - c;
+console.log(Sub(4, 6));
+
+//methods interfaces
+
+interface Details {
+  firstname: string;
+  lastname: string;
+  age: number;
+  hello(): void;
+}
+
+const greet = (person: Details) => {
+  console.log(
+    `${person.firstname} ${person.lastname} and age is ${person.age}`
+  );
+  console.log(person.hello());
+};
+
+const ali: Details = {
+  firstname: "ali",
+  lastname: "ahmed",
+  age: 34,
+  hello() {
+    console.log("hi everyone");
+  },
+};
+
+greet(ali);
+
+// extends
+interface Movie {
+  name: string;
+  rating: number;
+  movie(name: string, rating: number): string | number;
+}
+
+interface Movies extends Movie {
+  review: string;
+}
+const movie1: Movies = {
+  name: "harry potter",
+  rating: 4.5,
+  review: "great to watch.",
+  movie(name: string, rating: number): string | number {
+    return `${name} is ${this.review} and my rattin is :${rating}`;
+  },
+};
+console.log(movie1.movie(movie1.name, movie1.rating));
+
+// class interfaces
+
+interface Student {
+  name: string;
+  roll: number;
+  greet(): void;
+}
+class Student implements Student {
+  constructor(name: string, roll: number) {
+    this.name = name;
+    this.roll = roll;
+  }
+  greet(): void {
+    console.log(
+      `hello everyone i am ${this.name} and my roll no is ${this.roll}`
+    );
+  }
+}
+const stu1 = new Student("sagor", 34);
+stu1.greet();
+
+// declaration mergin interfaces
+interface Car {
+  model: string;
+  start(): void;
+}
+interface Car {
+  brand: string;
+  stop(): void;
+}
+
+const Mycare: Car = {
+  model: "fi24",
+  brand: "ferrari",
+  start(): void {
+    console.log("start the car.");
+  },
+  stop(): void {
+    console.log("stop the car");
+  },
+};
+Mycare.start();
+
+// GENIRICS TYPES
+function Unique<T>(item: T, defaultValue: T): [T, T] {
+  return [item, defaultValue];
+}
+
+console.log(Unique<number>(4, 5));
+console.log(Unique<string>("ertt", "jkgg"));
+console.log(Unique<boolean>(true, false));
+
+//
+//
+function filterArray<T>(array: T[], condition: (item: T) => boolean): T[] {
+  return array.filter((item) => condition(item));
+}
+
+let ArrNum = [1, 2, 3, 4, 5, 6, 7, 8];
+const evenResult = filterArray<number>(ArrNum, (num) => num % 2 === 0);
+console.log(evenResult);
+//
+interface Fruit {
+  name: string;
+  color: string;
+}
+
+const fruitArray: Fruit[] = [
+  { name: "apple", color: "red" },
+  { name: "pineapple", color: "yellow" },
+  { name: "cherry", color: "red" },
+];
+
+const redFruit = filterArray<Fruit>(
+  fruitArray,
+  (fruit) => fruit.color === "red"
+);
+console.log(redFruit);
+// or
+const yellowFruit = fruitArray.filter((fruit) => fruit.color === "yellow");
+console.log(yellowFruit);
+
+//
+function Multigen<T, U, V>(a: T, b: U, c: V): [T, U, V] {
+  return [a, b, c];
+}
+console.log(Multigen<string, number, boolean>("habib", 13, true));
+//
+interface responsData<T> {
+  status: number;
+  data: T;
+}
+
+const Data: responsData<{ name: string; age: number }> = {
+  status: 200,
+  data: {
+    name: "https",
+    age: 3,
+  },
+};
+console.log(Data);
