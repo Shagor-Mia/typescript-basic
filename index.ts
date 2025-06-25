@@ -136,7 +136,7 @@ let users: UserInfos | UserDetails = {
 
 console.log(`${users.ages}`);
 
-// letral types
+// letaral types
 let colors: "red" | "yellow";
 let color: "red" = "red";
 colors = "red";
@@ -378,3 +378,60 @@ const Data: responsData<{ name: string; age: number }> = {
   },
 };
 console.log(Data);
+//
+class Box<T> {
+  private content: T;
+  constructor(currentContent: T) {
+    this.content = currentContent;
+  }
+  get Content(): T {
+    return this.content;
+  }
+
+  set Content(newContent: T) {
+    this.content = newContent;
+  }
+}
+const box = new Box<string>("hello there");
+console.log("Current:", box.Content);
+box.Content = "new content";
+console.log("New:", box.Content);
+
+// type narrowing
+
+//tyopeof
+type Mytype = string | number;
+
+function Check(value: Mytype): void {
+  if (typeof value === "string") {
+    console.log(value.toUpperCase());
+  } else {
+    console.log(value.toFixed(3));
+  }
+}
+
+Check(3);
+//instanceof
+class Dog {
+  bark(): void {
+    console.log("dog is barking");
+  }
+}
+class Cat {
+  mewo(): void {
+    console.log("cat is mewo");
+  }
+}
+function Animal(animal: Cat | Dog): void {
+  if (animal instanceof Dog) {
+    animal.bark();
+  } else {
+    animal.mewo();
+  }
+}
+
+const dog = new Dog();
+const cat = new Cat();
+
+Animal(dog);
+Animal(cat);
