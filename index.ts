@@ -435,3 +435,17 @@ const cat = new Cat();
 
 Animal(dog);
 Animal(cat);
+
+//in
+type Cars = { speed: number };
+type Baot = { sail: boolean };
+
+function Move(vehicle: Cars | Baot): void {
+  if ("speed" in vehicle) {
+    console.log("car moving:", vehicle.speed);
+  } else {
+    console.log("boat moving:", vehicle.sail);
+  }
+}
+Move({ speed: 80.4 });
+Move({ sail: true });
